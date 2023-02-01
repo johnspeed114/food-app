@@ -1,25 +1,31 @@
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
 import Header from './components/Layout/Header';
 import Meals from './components/Meals/Meals';
-import Modal from './components/UI/Modal';
+import Cart from './components/Cart/Cart';
+import CartProvider from './store/CartProvider';
 
 function App() {
   // every page should have a main tag for the main content of the body [Good Practice!!]
-  const [cartModal, setCartModal] = useState(false);
+  const [cartDisplay, setCartDisplay] = useState(true);
+  const showHandler = () => {
+    setCartDisplay(true);
+  };
+  const hideHandler = () => {
+    setCartDisplay(false);
+  };
+
   return (
-    <>
-      <Header cartModal={cartModal} setCartModal={setCartModal} />
+    // [FYI] we wrap the app component so we have it globally
+    //[IMPORTANT] Why we don't use the useContext and cart state comp here? divide roles speicically to each file
+    //LEANNNNNNN!!!
+    <CartProvider>
+      {/* [FYI] usually if its 2-3 level props passing no need for useContexts */}
+      <Header showCart={showHandler} />
       <main>
         <Meals />
       </main>
-      {cartModal
-        ? createPortal(
-            <Modal setCartModal={setCartModal} />,
-            document.getElementById('modal-root')
-          )
-        : null}
-    </>
+      {cartDisplay && <Cart hideCart={hideHandler} />}
+    </CartProvider>
   );
 }
 

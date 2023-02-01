@@ -9,10 +9,7 @@ const Header = (props) => {
     <>
       <header className={classes.header}>
         <h1>ReactMeals</h1>
-        <HeaderCartButton
-          cartModal={props.cartModal}
-          setCartModal={props.setCartModal}
-        />
+        <HeaderCartButton onClick={props.showCart} />
       </header>
       {/* [FYI]whenever modules with class names with dash notation we can't use dot selector only []! */}
       <div className={classes['main-image']}>
