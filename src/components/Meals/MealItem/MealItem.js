@@ -12,7 +12,6 @@ const MealItem = (props) => {
   //2. Find what is the issue with cart contextnot working
   //3. start changing the amount of cart context with addtoCartHandler
   const cartCtx = useContext(CartContext);
-  console.log(cartCtx.addItem);
   const addToCartHandler = (amount) => {
     cartCtx.addItem({
       id: props.id,

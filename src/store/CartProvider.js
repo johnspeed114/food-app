@@ -16,10 +16,29 @@ const cartReducer = (state, action) => {
     //3. then tarrget totalAmount and increase by that amount
 
     //[FYI]Why we shouldn't use push for array? we want to return a new array, like an immutabele way
-    const updatedItems = state.items.concat(action.item);
-    console.log(action.item);
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
+    // [FYI] findIndex is a method that return the index of the item that match the condition since
+    //sometimes we need to find AN EXISTING index of the item
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id
+    );
+    //If item is not exist in the cart, then we will return -1, falsy
+    const existingCartItem = state.items[existingCartItemIndex];
+    let updatedItems;
+
+    if (existingCartItem) {
+      const updatedItem = {
+        ...existingCartItem,
+        amount: existingCartItem.amount + action.item.amount,
+      };
+      //this is the way to update an array in a immutable way
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.concat(action.item);
+    }
+
     return { items: updatedItems, totalAmount: updatedTotalAmount };
   }
 
