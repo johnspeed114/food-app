@@ -3,8 +3,9 @@ import Input from '../../UI/Input';
 import classes from './MealItemForm.module.css';
 
 const MealItemForm = (props) => {
-  const [amounnt ]
+  const [amountIsValid, setAmountIsValid] = useState(true);
   const amountInputRef = useRef();
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -13,13 +14,23 @@ const MealItemForm = (props) => {
     const enteredAmountNumber = +enteredAmount;
 
     //setup conditionals for the enteredAmount since sometimes inputs might be wrong type
-    if (enteredAmount === )
+    if (
+      enteredAmountNumber > 5 ||
+      enteredAmountNumber < 1 ||
+      !enteredAmountNumber
+    ) {
+      setAmountIsValid(false);
+      return;
+    } else {
+      setAmountIsValid(true);
+      props.onAddToCart(enteredAmountNumber);
+    }
   };
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       {/* with the spread op now we can highly config */}
       <Input
-        ref={amountInpputRef}
+        ref={amountInputRef}
         label='Amount'
         input={{
           id: 'amount_' + props.id,
@@ -31,6 +42,7 @@ const MealItemForm = (props) => {
         }}
       />
       <button type='submit'>+ Add</button>
+      {!amountIsValid && <p>Please enter a valid amount (1-5).</p>}
     </form>
   );
 };

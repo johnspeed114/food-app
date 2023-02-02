@@ -8,9 +8,9 @@ const Input = React.forwardRef((props, ref) => {
       {/* The spread op enforces that key value pairs from inputs will be passed down */}
       {/* if the type is included or another prop in input passed it would include as input tag attribute */}
       {/* make the this component SUPER configurable */}
-      <input ref = {ref} {...props.input} />
+      <input ref={ref} {...props.input} />
     </div>
   );
-};
+});
 
 export default Input;

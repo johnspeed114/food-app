@@ -17,7 +17,7 @@ const cartReducer = (state, action) => {
 
     //[FYI]Why we shouldn't use push for array? we want to return a new array, like an immutabele way
     const updatedItems = state.items.concat(action.item);
-
+    console.log(action.item);
     const updatedTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
     return { items: updatedItems, totalAmount: updatedTotalAmount };

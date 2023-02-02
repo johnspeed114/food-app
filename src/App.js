@@ -6,7 +6,7 @@ import CartProvider from './store/CartProvider';
 
 function App() {
   // every page should have a main tag for the main content of the body [Good Practice!!]
-  const [cartDisplay, setCartDisplay] = useState(true);
+  const [cartDisplay, setCartDisplay] = useState(false);
   const showHandler = () => {
     setCartDisplay(true);
   };
