@@ -29,6 +29,8 @@ const cartReducer = (state, action) => {
 
     if (existingCartItem) {
       const updatedItem = {
+        //how does this existingCartItem work with the spread? since we want only items except amount.
+        //for objects in js you can't have the same key so this amount here overwrites the original amount
         ...existingCartItem,
         amount: existingCartItem.amount + action.item.amount,
       };
@@ -36,10 +38,12 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     } else {
+      //this is condition for new item added to cart not like exiisting
       updatedItems = state.items.concat(action.item);
     }
 
     return { items: updatedItems, totalAmount: updatedTotalAmount };
+  } else if (action.type === 'REMOVE') {
   }
 
   return defaultCartState;
